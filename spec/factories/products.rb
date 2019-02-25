@@ -4,7 +4,7 @@ FactoryBot.define do
     title              {"title"}
     body               {"bodobodybody"}
     image              {"imageurl"}
-    price 			   {1500}
+    price              {1500}
   end
 
 end

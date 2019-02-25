@@ -25,16 +25,16 @@ describe Product do
       expect(product.errors[:price]).to include("can't be blank")
     end
 
-	  it "商品タイトルが長すぎないか" do
-	    product = FactoryBot.build(:product,title: "a" * 101)
-	    product.valid?
+    it "商品タイトルが長すぎないか" do
+      product = FactoryBot.build(:product,title: "a" * 101)
+      product.valid?
       expect(product.errors[:title]).to include("is too long (maximum is 100 characters)")
-	  end
+    end
 
-	  it "商品説明文が長すぎないか" do
-	    product = FactoryBot.build(:product,body: "a" * 501)
-	    product.valid?
+    it "商品説明文が長すぎないか" do
+      product = FactoryBot.build(:product,body: "a" * 501)
+      product.valid?
       expect(product.errors[:body]).to include("is too long (maximum is 500 characters)")
-	  end
+    end
   end
 end
