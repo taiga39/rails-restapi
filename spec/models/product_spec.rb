@@ -1,12 +1,13 @@
 require 'rails_helper'
 describe Product do
   describe '#create' do
-    it "商品タイトルが存在しているか" do
 
+    it "商品タイトルが存在しているか" do
       product = FactoryBot.build(:product, title: "")
       product.valid?
       expect(product.errors[:title]).to include("can't be blank")
     end
+
     it "商品説明文が存在しているか" do
       product = FactoryBot.build(:product, body: "")
       product.valid?
