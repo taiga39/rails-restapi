@@ -1,6 +1,5 @@
 class Api::V1::ProductsController < ApplicationController
   before_action :set_product, only: [:show, :update, :destroy]
-  protect_from_forgery except: [:create,:update]
   def index
     @products = Product.all
     render json: (@products)
