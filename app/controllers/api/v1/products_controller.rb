@@ -1,5 +1,6 @@
 class Api::V1::ProductsController < ApplicationController
   before_action :set_product, only: [:show, :update, :destroy]
+  protect_from_forgery with: :null_session
 
   def index
     @products = Product.all
@@ -7,11 +8,12 @@ class Api::V1::ProductsController < ApplicationController
   end
 
   def create
-    @product = Product.new(product_params)
-    if @product.save
+    begin
+      @product = Product.new(product_params)
+      @product.save!
       render json: (@product),status:201
-    else
-      render json:{error:"404 error"},status:404
+    rescue => error
+      render json: (error),status:404
     end
   end
 
@@ -20,10 +22,11 @@ class Api::V1::ProductsController < ApplicationController
   end
 
   def update
-    if @product.update(product_params)
+    begin
+      @product.update!(product_params)
       render json: (@product),status:200
-    else
-      render json: {error:"404 error"},status:404
+    rescue => error
+      render json:(error),status:404
     end
   end
 
