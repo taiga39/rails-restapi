@@ -1,10 +1,9 @@
 FactoryBot.define do
 
-  factory :product do
+  factory :product, class: Product do
     title              {"title"}
-    body               {"bodobodybody"}
+    body               {"body"}
     image              {"imageurl"}
     price              {1500}
   end
-
 end
