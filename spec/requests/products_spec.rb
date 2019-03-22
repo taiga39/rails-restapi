@@ -12,9 +12,11 @@ RSpec.describe "Products", type: :request do
     end
 
     it "全件を取得する場合" do
-      @product = FactoryBot.create_list(:product,3)
+      @product = FactoryBot.create_list(:product,5)
       get "/api/v1/products"
       expect(response.status).to eq 200
+      json = JSON.parse(response.body)
+      expect(Product.count).to eq (5)
     end
   end
 
@@ -22,7 +24,7 @@ RSpec.describe "Products", type: :request do
     it "商品情報が登録される" do
       @product = FactoryBot.attributes_for(:product)
       expect do
-        post "/api/v1/products",params:@product
+        post "/api/v1/products", params:@product
       end.to change{Product.count}.by(1)
       expect(response.status).to eq 201
     end
@@ -38,7 +40,7 @@ RSpec.describe "Products", type: :request do
     it "情報が更新される" do
       @product = FactoryBot.create(:product)
       @newproduct = FactoryBot.attributes_for(:product,title: "newtitle")
-      put "/api/v1/products"+ "/" +@product[:id].to_s,params:@newproduct
+      put "/api/v1/products"+ "/" +@product[:id].to_s, params:@newproduct
       expect(response.status).to eq 200
       json = JSON.parse(response.body)
       expect(json['title']).to eq @newproduct[:title]
